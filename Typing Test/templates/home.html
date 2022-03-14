@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <title>Typing Test</title>
+    <style>
+        textarea:focus {
+            outline: 0 none;
+        }
+    </style>
+</head>
+<body class="mt-70">
+    <div class="container text-center">
+        <!-- Navbar -->
+        <nav class="navbar navbar-warning bg-warning">
+            <div class="container">
+              <a class="navbar-brand" href="#">
+                  <img src="{{url_for('static', filename='img/icon.png')}}" alt="icon" width="50" height="44" class="d-inline-block align-text-middle "><span class="text-white">Typing Test</span> 
+              </a>
+            </div>
+          </nav>
+        <div class="row">
+            <!-- Test section -->
+            <div class="col-sm-10" id="test">
+                <h2 class="text-success">Test Typing Online</h2>
+                <small class="text-dark">Test and improve your typing speed </small>
+                <br><br><br>
+
+                <h1 class="text-center text-danger"><span id="time"></span></h1>
+
+                <p class="text-dark text-size-lg">{{content}}</p>
+                    <form action="{{url_for('validate_content')}}" method="post">
+                        <textarea class="rounded border border-warning form-control shadow-none" style="resize: none;" name="content" id="content" cols="100" rows="8" autocomplete="off" autofocus="true" readonly="readonly" placeholder=" Hit start and begin typing above sentence" onkeydown="return isValidKey(event)"></textarea>
+                        <br><br>
+                        <div class="inline text-center">
+                            <input type="button" class="btn btn-warning border border-success" id="start" onclick="start_timer()" value="Start">
+                            <input type="submit" class="btn btn-warning" id="check" value="Check Result" style="display: none;">
+                        </div>
+                    </form>
+                <br><br>
+                <div id="div-result" class="{{visibility}}">
+                    <div class="row">
+                        <div class="col-md-6"><h6> WPM: {{wpm}}</h6></div>
+                        <div class="col-md-6"><h6>Accuracy: {{accuracy}}%</h6></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"><p>Total Entries: {{total_entries}}</p></div>
+                        <div class="col-md-6"><p>Correct Entries: {{accurate_entries}}</p></div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6"><p>Incorrect Entries: {{total_errors}}</p></div>
+                        <div class="col-md-6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        function isValidKey(e) {
+            var charCode = e.keyCode || e.which;
+            if (charCode === 8 || e.which == 46){
+                e.preventDefault();
+                return false;
+            }
+            return true;
+        }
+    </script>
+    <script src="{{url_for('static', filename='js/timer.js')}}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js" integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13" crossorigin="anonymous"></script>
+</body>
+</html>
